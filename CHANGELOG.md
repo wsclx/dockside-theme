@@ -5,6 +5,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), ver
 
 ## [Unreleased]
 
+### Fixed
+- card-mod: keyboard focus on tiles gets a 2 px ring in the focus blue (3:1 on the glass). The frontend's own 1 px ring in the tile colour is nearly invisible for yellow or amber lights on light glass (1.1–1.4:1).
+
 ## [1.0.1] - 2026-11-25
 
 ### Fixed

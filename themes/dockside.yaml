@@ -306,6 +306,11 @@ Dockside:
     .card-header, .card-header .name { font-weight: 700; }
     /* the gauge draws its empty arc in the window colour; on glass it reads as a hole, so use the slider track */
     ha-gauge { --primary-background-color: var(--dockside-track); }
+    /* tiles draw keyboard focus as a 1 px ring in the tile colour, too faint in yellow or amber on light glass;
+       add a 2 px ring in the focus blue whenever the frontend marks the tile focused */
+    ha-card:has(ha-tile-container[focused]) {
+      box-shadow: var(--ha-card-box-shadow), 0 0 0 2px var(--ha-color-focus) !important;
+    }
     :host(hui-heading-card) .container {
       width: fit-content;
       padding: 6px 14px;
