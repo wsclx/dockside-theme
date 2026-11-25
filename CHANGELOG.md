@@ -5,6 +5,21 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), ver
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-25
+
+### Fixed
+- Menu bar with card-mod: when the page scrolls and widgets pass under the transparent bar, it now darkens and blurs them, so the white text keeps 4.5:1 (before, white text could sit on light glass).
+
+### Added
+- Smaller wallpapers (2560 × 1440) in the release for wall tablets and older phones.
+- Without card-mod the menu bar blurs what lies behind it (the frontend's own `app-header-backdrop-filter`).
+- card-mod: menu titles 15 px on phones; a lighter shadow for cards on settings pages.
+- `rgb-card-background-color` for components that mix the card colour with transparency.
+- card-mod: the empty arc of gauge cards uses the slider track colour instead of the window colour (it looked like a hole in dark mode).
+
+### Changed
+- README: install steps hidden in the Marketplace view, tips for slow tablets and bright pictures of your own, where the wallpapers come from, two more pictures.
+
 ## [1.0.0] - 2026-11-25
 
 ### Added

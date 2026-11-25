@@ -1,6 +1,8 @@
 # Dockside
 
+<!-- ha-marketplace:exclude-start -->
 [![Open your Home Assistant instance and open this repository in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=wsclx&repository=dockside-theme&category=theme)
+<!-- ha-marketplace:exclude-end -->
 
 A theme for Home Assistant inspired by the macOS desktop: your dashboard becomes the desktop. A photo of a bay is the wallpaper, cards float above it as frosted glass widgets, and the header is a see-through menu bar with the text right on the picture. Light mode shows the bay at sunset, dark mode the same bay at night.
 
@@ -16,7 +18,7 @@ A theme for Home Assistant inspired by the macOS desktop: your dashboard becomes
 
 - **A desktop with a wallpaper.** Two photos made for this theme, 5120 × 2880 pixels: a bay at sunset (light) and the same bay at night (dark). They show behind every dashboard. Settings, history, map and the other pages are calm windows without the picture, so charts and tables stay readable.
 - **Glass widgets.** Cards are frosted glass with a 20 px radius, a light rim along the top edge, a darker outer edge and a deep shadow, like widgets on the desktop.
-- **A menu bar.** With card-mod the dashboard header is fully transparent: white text on a soft shade at the top of the picture, 13 px, the current view in bold and the other views as plain menu titles. Without card-mod the menu bar has a translucent background, like the desktop's option to show one.
+- **A menu bar.** With card-mod the dashboard header is fully transparent: white text on a soft shade at the top of the picture, 13 px (15 px on phones), the current view in bold and the other views as plain menu titles. When the page scrolls and widgets pass under it, the bar darkens and blurs them, so the text stays readable. Without card-mod the menu bar has a blurred, translucent background, like the desktop's option to show one.
 - **Readable on the picture.** Every text colour is measured (WCAG 2.2, 4.5:1 for text, 3:1 for controls) against the darkest spot of the light picture and the brightest spot of the dark picture behind the glass. Where a system colour falls short as text, the theme uses a darker or lighter tone of the same hue.
 - **Desktop details.** Green switches with a white thumb, blue accents, the system blue focus ring, glass dialogs, widgets with bold titles (card-mod), section headings on small glass capsules (card-mod) and a dot beside the active page in the sidebar, as under a running app in the dock (card-mod).
 - **System font.** The system UI font of your device (`-apple-system`, `system-ui`, Segoe UI, Roboto). Nothing is downloaded.
@@ -26,9 +28,13 @@ A theme for Home Assistant inspired by the macOS desktop: your dashboard becomes
 |---|---|
 | ![Tiles, badges and section headings in light mode](https://raw.githubusercontent.com/wsclx/dockside-theme/main/images/rooms-light-desktop.jpg) | ![Tiles, badges and section headings in dark mode](https://raw.githubusercontent.com/wsclx/dockside-theme/main/images/rooms-dark-desktop.jpg) |
 
-Without card-mod the theme still works: wallpaper, glass widgets, colours, switches and dialogs stay the same. The menu bar keeps a translucent background, widgets are a little more opaque because nothing blurs the picture behind them, and section headings sit directly on the picture.
+Without card-mod the theme still works: wallpaper, glass widgets, colours, switches and dialogs stay the same. The menu bar keeps a translucent background, widgets are a little more opaque because nothing blurs the picture behind them, section headings sit directly on the picture, and the sidebar keeps the frontend's default font (Roboto).
 
 ![Without card-mod: menu bar with background, no blur, headings without capsule](https://raw.githubusercontent.com/wsclx/dockside-theme/main/images/dashboard-light-desktop-no-cardmod.jpg)
+
+| Without card-mod, dark, phone | A light's dialog on the desktop |
+|---|---|
+| ![Dark mode on a phone without card-mod](https://raw.githubusercontent.com/wsclx/dockside-theme/main/images/dashboard-dark-phone-no-cardmod.jpg) | ![More-info dialog of a light as glass over the wallpaper](https://raw.githubusercontent.com/wsclx/dockside-theme/main/images/moreinfo-light-desktop.jpg) |
 
 | Settings, light | Settings, dark |
 |---|---|
@@ -43,7 +49,11 @@ Without card-mod the theme still works: wallpaper, glass widgets, colours, switc
 
 ### 1. The theme
 
-**Marketplace:** open **Settings → Marketplace**, search for **Dockside** and download it. Then reload themes: **Developer tools → Actions → `frontend.reload_themes`**.
+<!-- ha-marketplace:exclude-start -->
+**Marketplace:** open **Settings → Marketplace**, search for **Dockside** and download it.
+<!-- ha-marketplace:exclude-end -->
+
+After downloading from the Marketplace, reload themes: **Developer tools → Actions → `frontend.reload_themes`**.
 
 **Manual:** copy `themes/dockside.yaml` into the `themes` folder of your configuration, make sure `configuration.yaml` loads that folder, then restart Home Assistant or run `frontend.reload_themes`:
 
@@ -67,6 +77,8 @@ wget -O dockside-light.jpg https://github.com/wsclx/dockside-theme/releases/late
 wget -O dockside-dark.jpg https://github.com/wsclx/dockside-theme/releases/latest/download/dockside-dark.jpg
 ```
 
+**Wall tablets and older phones:** the release also has `dockside-light-2560.jpg` and `dockside-dark-2560.jpg` (2560 × 1440, about 0.5 MB). Save them under the same two names, `dockside-light.jpg` and `dockside-dark.jpg`. A 5K picture takes about 60 MB of memory once decoded; the smaller one about a quarter.
+
 If the folder `www` did not exist before, restart Home Assistant once so it serves `/local/`. To check, open `http://<your-home-assistant>/local/dockside/dockside-light.jpg` in the browser.
 
 ### 3. Use the theme
@@ -83,6 +95,8 @@ Dockside reads the picture from one variable per mode, `dockside-wallpaper`. Two
 A dashboard view can also have its own background (**Edit dashboard → view settings → Background**); it replaces the theme's picture on that view.
 
 The text colours are measured against the supplied pictures. With a very bright or very busy picture of your own, check that the text on the widgets is still easy to read. If it is not, raise the opacity in `dockside-glass` and `dockside-glass-blurred` in your copy.
+
+The menu bar text is white on the picture (with card-mod). With a bright top edge in your picture, raise the shade in `dockside-menubar-shade`, for example to `linear-gradient(180deg, rgba(0,0,0,.45) 0, rgba(0,0,0,0) 120px)`.
 
 ## Optional: card-mod
 
@@ -109,6 +123,7 @@ Change the variables below in a copy of the theme (under another name), or overr
 | `dockside-menubar` | Background of the menu bar without card-mod, and on pages without the picture |
 | `dockside-glass`, `dockside-glass-blurred` | Widget glass without and with blur (card-mod) |
 | `dockside-glass-side-blurred`, `dockside-glass-filter` | Sidebar glass and the blur itself (card-mod) |
+| `dockside-menubar-scrolled` | Blur and darkening behind the menu bar while the page is scrolled (card-mod) |
 | `dockside-rim`, `dockside-edge`, `dockside-depth` | Light rim, dark outer edge and shadow of the widgets |
 | `dockside-switch-on`, `dockside-switch-on-rim`, `dockside-switch-off` | Switch colours |
 | `primary-color`, `sidebar-selected-icon-color` | Blue for links, buttons and the selected sidebar entry |
@@ -122,7 +137,7 @@ Change the variables below in a copy of the theme (under another name), or overr
 - Window buttons, desktop icons and app icons are not drawn. Icons stay Material Design Icons; a theme cannot swap icon sets.
 - Without card-mod: no blur, the menu bar keeps a background, and section headings sit directly on the picture, where they are not always easy to read. Leave them out or install card-mod.
 - Some system colours are darker (light mode) or lighter (dark mode) than on the desktop, so that text on the glass stays readable. Icon colours use the system values, because the state is always also written out.
-- The pictures are about 2 MB each. Phones load them once and keep them in the cache.
+- The pictures are about 2 MB each. Phones load them once and keep them in the cache. On slow wall tablets, use the 2560 × 1440 pictures (above). If scrolling still stutters, switch the blur off in a copy of the theme: set `dockside-glass-filter` to `none` **and** `dockside-glass-blurred` to the value of `dockside-glass` in both modes; otherwise the glass gets clearer without the blur that keeps the text readable.
 - The thermostat ring, weather icons and the size of switches are drawn by the frontend; the theme sets their colours.
 - Light and media colours that a card takes from the device (a light's RGB colour, album art) stay as they are.
 - The system font depends on your device: the system font on Apple devices, Segoe UI on Windows, Roboto on Android, otherwise the default sans-serif.
@@ -134,6 +149,6 @@ Issues and pull requests are welcome. Please include your Home Assistant version
 
 ## License
 
-[MIT](LICENSE), including the two wallpapers in `wallpapers/` and in the releases. The wallpapers were made for this project with an image generator and an upscaler; they show no real place.
+[MIT](LICENSE). The wallpapers in `wallpapers/` and in the releases were made for this project: generated with Seedream 5.5 and upscaled with Topaz Image Upscale, both through ElevenLabs' image tools. They show no real place. To the extent any rights in them exist, they are released under the same MIT license.
 
 This is a community project. It is not affiliated with or endorsed by Home Assistant or the Open Home Foundation. It is inspired by the macOS desktop and not affiliated with Apple Inc.; macOS is a trademark of Apple Inc. No Apple artwork, icons, wallpapers or fonts are included.

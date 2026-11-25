@@ -46,6 +46,9 @@ Dockside:
   app-header-background-color: "var(--dockside-menubar)"
   app-header-text-color: "var(--primary-text-color)"
   app-header-border-bottom: "none"
+  # The frontend blurs the menu bar itself through this variable (no card-mod needed)
+  app-header-backdrop-filter: "blur(20px) saturate(1.6)"
+  dockside-menubar-scrolled: "blur(24px) brightness(.45)"
 
   # Sidebar: glass to the window edge
   sidebar-background-color: "var(--dockside-glass)"
@@ -101,6 +104,7 @@ Dockside:
       dockside-menubar: "rgba(246,246,246,.72)"
       # 84 % without blur, 82 % with blur (card-mod): secondary text keeps 4.5:1 over the darkest rocks
       dockside-glass: "rgba(246,246,246,.84)"
+      rgb-card-background-color: "246, 246, 246"
       dockside-glass-blurred: "rgba(246,246,246,.82)"
       dockside-glass-side-blurred: "rgba(246,246,246,.78)"
       dockside-rim: "inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(255,255,255,.25)"
@@ -146,7 +150,8 @@ Dockside:
       ha-color-focus: "#0067f4"
 
       slider-color: "#0062cc"
-      slider-track-color: "rgba(0,0,0,.12)"
+      dockside-track: "rgba(0,0,0,.12)"
+      slider-track-color: "var(--dockside-track)"
       control-slider-color: "#0062cc"
       info-color: "#0062cc"
       graph-color-1: "#007aff"
@@ -198,6 +203,7 @@ Dockside:
       dockside-menubar-shade: "linear-gradient(180deg, rgba(0,0,0,.30) 0, rgba(0,0,0,0) 120px)"
       dockside-menubar: "rgba(30,30,30,.72)"
       dockside-glass: "rgba(30,30,30,.84)"
+      rgb-card-background-color: "30, 30, 30"
       dockside-glass-blurred: "rgba(30,30,30,.62)"
       dockside-glass-side-blurred: "rgba(30,30,30,.60)"
       dockside-glass-filter: "blur(30px) saturate(1.6)"
@@ -244,7 +250,8 @@ Dockside:
       ha-color-focus: "#1aa9ff"
 
       slider-color: "#0091ff"
-      slider-track-color: "rgba(255,255,255,.16)"
+      dockside-track: "rgba(255,255,255,.16)"
+      slider-track-color: "var(--dockside-track)"
       control-slider-color: "#0091ff"
       info-color: "#0091ff"
       graph-color-1: "#0091ff"
@@ -297,6 +304,8 @@ Dockside:
       backdrop-filter: var(--dockside-glass-filter);
     }
     .card-header, .card-header .name { font-weight: 700; }
+    /* the gauge draws its empty arc in the window colour; on glass it reads as a hole, so use the slider track */
+    ha-gauge { --primary-background-color: var(--dockside-track); }
     :host(hui-heading-card) .container {
       width: fit-content;
       padding: 6px 14px;
@@ -306,13 +315,20 @@ Dockside:
       -webkit-backdrop-filter: var(--dockside-glass-filter);
       backdrop-filter: var(--dockside-glass-filter);
     }
-  # Optional, card-mod 4.x. Menu bar on dashboards: transparent, white text, 13 px, the current page in bold.
+  # Optional, card-mod 4.x. Menu bar on dashboards: transparent with white text while the page is at the top. Once the
+  # page scrolls (the frontend marks the header [scrolled]), widgets pass under it; the bar then darkens and blurs
+  # what lies behind, so the white text keeps 4.5:1 on light glass. 13 px titles, 15 px on phones.
   card-mod-root: |
-    :host { --app-header-background-color: transparent; --app-header-text-color: #ffffff; }
+    :host { --app-header-background-color: transparent; --app-header-text-color: #ffffff; --app-header-backdrop-filter: none; }
+    :host([scrolled]) { --app-header-backdrop-filter: var(--dockside-menubar-scrolled); }
     .main-title { font-size: 13px; font-weight: 700; letter-spacing: -.08px; }
     ha-tab-group { --indicator-color: transparent; --track-color: transparent; }
     ha-tab-group-tab { font-size: 13px; opacity: 1; }
     ha-tab-group-tab[active] { font-weight: 700; }
+    @media (max-width: 600px) { .main-title, ha-tab-group-tab { font-size: 15px; } }
+  # Optional, card-mod 4.x. Settings: the same glass with a lighter shadow, so stacked lists do not look heavy.
+  card-mod-config: |
+    :host { --ha-card-box-shadow: var(--dockside-rim), 0 2px 8px rgba(0,0,0,.10); }
   # Optional, card-mod 4.x. Sidebar: blurred glass to the window edge; the active page gets the dock dot.
   card-mod-sidebar: |
     :host {
