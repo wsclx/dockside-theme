@@ -310,6 +310,7 @@ Dockside:
        add a 2 px ring in the focus blue whenever the frontend marks the tile focused */
     ha-card:has(ha-tile-container[focused]) {
       box-shadow: var(--ha-card-box-shadow), 0 0 0 2px var(--ha-color-focus) !important;
+      border-color: var(--ha-color-focus) !important;
     }
     :host(hui-heading-card) .container {
       width: fit-content;
