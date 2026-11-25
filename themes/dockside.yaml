@@ -1,0 +1,335 @@
+# Dockside: a Home Assistant theme inspired by the macOS desktop. Your dashboard becomes the desktop: a photo of a
+# bay as wallpaper, cards as frosted glass widgets floating above it, the header as a see-through menu bar with the
+# text right on the picture. Light mode is the bay at sunset, dark mode the same bay at night.
+# Community project, not affiliated with Apple or Home Assistant; see the README.
+#
+# The wallpaper is not part of this file (a theme can only ship one YAML file). Copy the two pictures from the
+# release into /config/www/dockside/ (see the README). Without them you get a gradient in the same colours.
+# Your own picture: replace the two files, or point dockside-wallpaper (per mode, below) at another file.
+#
+# Works without any add-on: wallpaper behind every page, glass widgets with a light rim, dark edge and deep shadow,
+# the transparent menu bar, a glass sidebar, glass dialogs, green switches, blue accents, system fonts.
+# With card-mod 4.x installed (optional), the card-mod-* keys add the blur behind widgets and sidebar, a 13 px menu
+# bar with the current page in bold, bold widget titles, glass capsules behind section headings and a dot beside
+# the active page as in a dock. Without card-mod those keys are ignored.
+#
+# Contrast: every text colour is measured against the darkest (light mode) or brightest (dark mode) spot of the
+# supplied pictures behind the glass. Where a system colour falls short as text, a darker (or lighter) tone of the
+# same hue is used. With a picture of your own, check that text on the widgets is still easy to read.
+#
+# Fonts: the system UI font stack only (-apple-system, system-ui). Nothing is downloaded.
+Dockside:
+  card-mod-theme: Dockside
+
+  # Shared by both modes
+  # The picture is the desktop: dashboards only. Settings, history, map and other pages are windows on a calm ground.
+  lovelace-background: "var(--dockside-menubar-shade), var(--dockside-wallpaper) center / cover no-repeat fixed, var(--dockside-fallback)"
+  ha-panel-background: "var(--primary-background-color)"
+  dockside-glass-filter: "blur(30px) saturate(1.8)"
+  card-background-color: "var(--dockside-glass)"
+  ha-card-background: "var(--dockside-glass)"
+  ha-card-border-color: "var(--dockside-edge)"
+  ha-card-border-width: "1px"
+  ha-card-border-radius: "20px"
+  ha-card-box-shadow: "var(--dockside-rim), var(--dockside-depth)"
+  ha-card-header-font-size: "17px"
+  ha-badge-border-radius: "9999px"
+  ha-tile-icon-border-radius: "10px"
+  ha-section-grid-row-gap: "16px"
+  ha-section-grid-column-gap: "16px"
+  entities-card-row-gap: "10px"
+  ha-dialog-border-radius: "22px"
+  ha-dialog-surface-backdrop-filter: "blur(40px) saturate(1.8)"
+
+  # Menu bar: a translucent bar like the desktop's "show menu bar background" option. With card-mod it becomes fully
+  # transparent on dashboards, with white text on the shaded top edge of the picture.
+  app-header-background-color: "var(--dockside-menubar)"
+  app-header-text-color: "var(--primary-text-color)"
+  app-header-border-bottom: "none"
+
+  # Sidebar: glass to the window edge
+  sidebar-background-color: "var(--dockside-glass)"
+  sidebar-text-color: "var(--primary-text-color)"
+  sidebar-icon-color: "var(--secondary-text-color)"
+  sidebar-menu-button-text-color: "var(--primary-text-color)"
+
+  # Switches: green track, white thumb, a rim that keeps 3:1 against the glass
+  ha-switch-checked-background-color: "var(--dockside-switch-on)"
+  ha-switch-checked-background-color-hover: "var(--dockside-switch-on)"
+  ha-switch-checked-border-color: "var(--dockside-switch-on-rim)"
+  ha-switch-checked-border-color-hover: "var(--dockside-switch-on-rim)"
+  ha-switch-checked-thumb-background-color: "#ffffff"
+  ha-switch-checked-thumb-background-color-hover: "#ffffff"
+  ha-switch-checked-thumb-border-color: "transparent"
+  ha-switch-checked-thumb-border-color-hover: "transparent"
+  ha-switch-background-color: "var(--dockside-switch-off)"
+  ha-switch-background-color-hover: "var(--dockside-switch-off)"
+  ha-switch-border-color: "var(--dockside-switch-off-rim)"
+  ha-switch-thumb-background-color: "#ffffff"
+  ha-switch-thumb-background-color-hover: "#ffffff"
+  ha-switch-thumb-border-color: "transparent"
+  ha-switch-thumb-border-color-hover: "transparent"
+  ha-switch-thumb-box-shadow: "0 1px 1px rgba(0,0,0,.16), 0 3px 8px rgba(0,0,0,.22)"
+  switch-checked-button-color: "#ffffff"
+  switch-checked-track-color: "var(--dockside-switch-on)"
+  switch-unchecked-button-color: "#ffffff"
+  switch-unchecked-track-color: "var(--dockside-switch-off)"
+
+  # Fields inside glass widgets
+  ha-color-form-background: "var(--dockside-field)"
+  ha-color-form-background-hover: "var(--dockside-field-hover)"
+  input-fill-color: "var(--dockside-field)"
+  mdc-text-field-fill-color: "var(--dockside-field)"
+  mdc-select-fill-color: "var(--dockside-field)"
+  markdown-code-background-color: "var(--dockside-field)"
+
+  # Type: the system font; desktop size steps above the 14 px body text
+  ha-font-family-body: "-apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+  ha-font-family-heading: "-apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+  ha-font-family-code: "ui-monospace, Menlo, Consolas, monospace"
+  code-font-family: "ui-monospace, Menlo, Consolas, monospace"
+  ha-font-size-l: "15px"
+  ha-font-size-xl: "17px"
+  ha-font-size-2xl: "22px"
+  ha-font-size-3xl: "26px"
+
+  modes:
+    light:
+      dockside-wallpaper: "url('/local/dockside/dockside-light.jpg')"
+      dockside-fallback: "linear-gradient(180deg, #63718e 0%, #8d8299 34%, #ae938a 56%, #c19153 70%, #6b5446 84%, #2e2724 100%)"
+      dockside-menubar-shade: "linear-gradient(180deg, rgba(0,0,0,.28) 0, rgba(0,0,0,0) 120px)"
+      dockside-menubar: "rgba(246,246,246,.72)"
+      # 84 % without blur, 82 % with blur (card-mod): secondary text keeps 4.5:1 over the darkest rocks
+      dockside-glass: "rgba(246,246,246,.84)"
+      dockside-glass-blurred: "rgba(246,246,246,.82)"
+      dockside-glass-side-blurred: "rgba(246,246,246,.78)"
+      dockside-rim: "inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(255,255,255,.25)"
+      dockside-depth: "0 18px 42px rgba(18,12,30,.26), 0 2px 6px rgba(18,12,30,.12)"
+      dockside-edge: "rgba(0,0,0,.12)"
+      dockside-field: "rgba(0,0,0,.05)"
+      dockside-field-hover: "rgba(0,0,0,.08)"
+      dockside-switch-on: "#34c759"
+      dockside-switch-on-rim: "#147530"
+      dockside-switch-off: "rgba(0,0,0,.10)"
+      dockside-switch-off-rim: "#6e6e73"
+
+      # Label black at the measured 85 %; secondary text darker than the system's 50 % so it holds on glass
+      primary-text-color: "#272727"
+      secondary-text-color: "#4a4a4f"
+      disabled-text-color: "#8a8a8e"
+      rgb-primary-text-color: "39, 39, 39"
+      text-primary-color: "#ffffff"
+      primary-color: "#0050ad"
+      accent-color: "#0050ad"
+      ha-color-primary-05: "#001530"
+      ha-color-primary-10: "#00285a"
+      ha-color-primary-20: "#003a80"
+      ha-color-primary-30: "#00449a"
+      ha-color-primary-40: "#0050ad"
+      ha-color-primary-50: "#0062cc"
+      ha-color-primary-60: "#007aff"
+      ha-color-primary-70: "#66afff"
+      ha-color-primary-80: "#99caff"
+      ha-color-primary-90: "#cce4ff"
+      ha-color-primary-95: "#e6f1ff"
+      primary-background-color: "#ececec"
+      secondary-background-color: "#e2e2e2"
+      divider-color: "rgba(0,0,0,.10)"
+      app-header-edit-background-color: "rgba(0,0,0,.45)"
+      sidebar-selected-text-color: "#003d8c"
+      sidebar-selected-icon-color: "#003d8c"
+      ha-dialog-surface-background: "rgba(246,246,246,.88)"
+      mdc-theme-surface: "#f6f6f6"
+      mdc-dialog-scrim-color: "rgba(0,0,0,.22)"
+      paper-dialog-background-color: "#f6f6f6"
+      code-editor-background-color: "#ffffff"
+      ha-color-focus: "#0067f4"
+
+      slider-color: "#0062cc"
+      slider-track-color: "rgba(0,0,0,.12)"
+      control-slider-color: "#0062cc"
+      info-color: "#0062cc"
+      graph-color-1: "#007aff"
+      graph-color-2: "#ff8d28"
+      graph-color-3: "#34c759"
+      graph-color-4: "#cb30e0"
+      graph-color-5: "#00c3d0"
+      energy-solar-color: "#ff8d28"
+      energy-grid-consumption-color: "#007aff"
+      energy-battery-out-color: "#34c759"
+
+      # Messages and states shown as text: darker tones of the system hues (4.5:1 on the glass)
+      error-color: "#a3000f"
+      warning-color: "#8a3a00"
+      success-color: "#17622b"
+      state-climate-heat-color: "#8c3900"
+      state-climate-dry-color: "#8c3900"
+      state-climate-cool-color: "#0050ad"
+      state-climate-auto-color: "#17622b"
+      state-climate-heat_cool-color: "#17622b"
+      state-climate-fan_only-color: "#006f78"
+      # Icon colours: the measured system colours (the state is always also written out)
+      red-color: "#ff383c"
+      pink-color: "#ff2d55"
+      purple-color: "#cb30e0"
+      deep-purple-color: "#6155f5"
+      indigo-color: "#6155f5"
+      blue-color: "#0088ff"
+      light-blue-color: "#00c0e8"
+      cyan-color: "#00c0e8"
+      teal-color: "#00c3d0"
+      green-color: "#34c759"
+      light-green-color: "#34c759"
+      lime-color: "#00c8b3"
+      yellow-color: "#ffcc00"
+      amber-color: "#ff8d28"
+      orange-color: "#ff8d28"
+      deep-orange-color: "#ff8d28"
+      brown-color: "#ac7f5e"
+      grey-color: "#8e8e93"
+      state-icon-color: "#4a4a4f"
+      state-lock-locked-color: "#34c759"
+      state-lock-unlocked-color: "#ff383c"
+      state-media_player-on-color: "#ff2d55"
+
+    dark:
+      dockside-wallpaper: "url('/local/dockside/dockside-dark.jpg')"
+      dockside-fallback: "linear-gradient(180deg, #1e3d5d 0%, #243954 52%, #3e2a3a 60%, #141c2a 76%, #0b0f16 100%)"
+      dockside-menubar-shade: "linear-gradient(180deg, rgba(0,0,0,.30) 0, rgba(0,0,0,0) 120px)"
+      dockside-menubar: "rgba(30,30,30,.72)"
+      dockside-glass: "rgba(30,30,30,.84)"
+      dockside-glass-blurred: "rgba(30,30,30,.62)"
+      dockside-glass-side-blurred: "rgba(30,30,30,.60)"
+      dockside-glass-filter: "blur(30px) saturate(1.6)"
+      dockside-rim: "inset 0 1px 0 rgba(255,255,255,.16), inset 0 -1px 0 rgba(255,255,255,.04)"
+      dockside-depth: "0 20px 48px rgba(0,0,0,.50), 0 2px 6px rgba(0,0,0,.35)"
+      dockside-edge: "rgba(0,0,0,.55)"
+      dockside-field: "rgba(255,255,255,.08)"
+      dockside-field-hover: "rgba(255,255,255,.12)"
+      dockside-switch-on: "#30d158"
+      dockside-switch-on-rim: "#30d158"
+      dockside-switch-off: "rgba(255,255,255,.16)"
+      dockside-switch-off-rim: "#8e8e93"
+
+      primary-text-color: "#dcdcde"
+      secondary-text-color: "#b4b4b9"
+      disabled-text-color: "#6c6c70"
+      rgb-primary-text-color: "220, 220, 222"
+      # Dark text on the light blue; filled buttons use primary-40 under white text
+      text-primary-color: "#00152e"
+      primary-color: "#7ab8ff"
+      accent-color: "#7ab8ff"
+      ha-color-primary-05: "#000d1f"
+      ha-color-primary-10: "#00234d"
+      ha-color-primary-20: "#003675"
+      ha-color-primary-30: "#0050ad"
+      ha-color-primary-40: "#0059d1"
+      ha-color-primary-50: "#0091ff"
+      ha-color-primary-60: "#419cff"
+      ha-color-primary-70: "#7ab8ff"
+      ha-color-primary-80: "#a8d0ff"
+      ha-color-primary-90: "#d6e8ff"
+      ha-color-primary-95: "#ebf4ff"
+      primary-background-color: "#161616"
+      secondary-background-color: "#1e1e1e"
+      divider-color: "rgba(255,255,255,.12)"
+      app-header-edit-background-color: "rgba(0,0,0,.55)"
+      sidebar-selected-text-color: "#8cc4ff"
+      sidebar-selected-icon-color: "#8cc4ff"
+      ha-dialog-surface-background: "rgba(40,40,40,.88)"
+      mdc-theme-surface: "#282828"
+      mdc-dialog-scrim-color: "rgba(0,0,0,.45)"
+      paper-dialog-background-color: "#282828"
+      code-editor-background-color: "#1e1e1e"
+      ha-color-focus: "#1aa9ff"
+
+      slider-color: "#0091ff"
+      slider-track-color: "rgba(255,255,255,.16)"
+      control-slider-color: "#0091ff"
+      info-color: "#0091ff"
+      graph-color-1: "#0091ff"
+      graph-color-2: "#ff9230"
+      graph-color-3: "#30d158"
+      graph-color-4: "#db34f2"
+      graph-color-5: "#00d2e0"
+      energy-solar-color: "#ff9230"
+      energy-grid-consumption-color: "#0091ff"
+      energy-battery-out-color: "#30d158"
+
+      error-color: "#ff9a9c"
+      warning-color: "#ffb27a"
+      success-color: "#5fe07f"
+      state-climate-heat-color: "#ffa056"
+      state-climate-dry-color: "#ffa056"
+      state-climate-cool-color: "#7ab8ff"
+      state-climate-auto-color: "#5fe07f"
+      state-climate-heat_cool-color: "#5fe07f"
+      state-climate-fan_only-color: "#00d2e0"
+      red-color: "#ff4245"
+      pink-color: "#ff375f"
+      purple-color: "#db34f2"
+      deep-purple-color: "#6d7cff"
+      indigo-color: "#6d7cff"
+      blue-color: "#0091ff"
+      light-blue-color: "#3cd3fe"
+      cyan-color: "#3cd3fe"
+      teal-color: "#00d2e0"
+      green-color: "#30d158"
+      light-green-color: "#30d158"
+      lime-color: "#00dac3"
+      yellow-color: "#ffd600"
+      amber-color: "#ff9230"
+      orange-color: "#ff9230"
+      deep-orange-color: "#ff9230"
+      brown-color: "#b78a66"
+      grey-color: "#98989d"
+      state-icon-color: "#b4b4b9"
+      state-lock-locked-color: "#30d158"
+      state-lock-unlocked-color: "#ff4245"
+      state-media_player-on-color: "#ff375f"
+
+  # Optional, card-mod 4.x. Widgets: blur what lies behind them; bold titles as in the desktop's widgets;
+  # section headings get a small glass capsule, so they stay readable on any part of the picture.
+  card-mod-card: |
+    ha-card {
+      --ha-card-background: var(--dockside-glass-blurred);
+      -webkit-backdrop-filter: var(--dockside-glass-filter);
+      backdrop-filter: var(--dockside-glass-filter);
+    }
+    .card-header, .card-header .name { font-weight: 700; }
+    :host(hui-heading-card) .container {
+      width: fit-content;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--dockside-glass-blurred);
+      box-shadow: var(--dockside-rim), 0 0 0 1px var(--dockside-edge);
+      -webkit-backdrop-filter: var(--dockside-glass-filter);
+      backdrop-filter: var(--dockside-glass-filter);
+    }
+  # Optional, card-mod 4.x. Menu bar on dashboards: transparent, white text, 13 px, the current page in bold.
+  card-mod-root: |
+    :host { --app-header-background-color: transparent; --app-header-text-color: #ffffff; }
+    .main-title { font-size: 13px; font-weight: 700; letter-spacing: -.08px; }
+    ha-tab-group { --indicator-color: transparent; --track-color: transparent; }
+    ha-tab-group-tab { font-size: 13px; opacity: 1; }
+    ha-tab-group-tab[active] { font-weight: 700; }
+  # Optional, card-mod 4.x. Sidebar: blurred glass to the window edge; the active page gets the dock dot.
+  card-mod-sidebar: |
+    :host {
+      --sidebar-background-color: var(--dockside-glass-side-blurred);
+      -webkit-backdrop-filter: var(--dockside-glass-filter);
+      backdrop-filter: var(--dockside-glass-filter);
+      font-family: var(--ha-font-family-body);
+    }
+    .menu { border-bottom: 0 !important; }
+    ha-list-item-button { border-radius: 10px; position: relative; }
+    ha-list-item-button.selected::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: calc(50% - 2.5px);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--primary-text-color);
+    }
